@@ -1,12 +1,34 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useSyncExternalStore } from 'react'
 import { buildSeedData, getDayStatus, toDateKey, type DayEntry } from '@/lib/lab-data'
 import { MonthCalendar } from './month-calendar'
 import { MonthStats } from './month-stats'
 import { DaySheet } from './day-sheet'
 
+const subscribe = () => () => {}
+
+// "Today" depends on the user's local clock and timezone, so the calendar is rendered client-side only.
 export function DailyEntry() {
+  const mounted = useSyncExternalStore(subscribe, () => true, () => false)
+  if (!mounted) return <DailyEntrySkeleton />
+  return <DailyEntryClient />
+}
+
+function DailyEntrySkeleton() {
+  return (
+    <div className="flex flex-col gap-6" aria-busy="true" aria-label="Chargement du calendrier">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+        {Array.from({ length: 4 }, (_, i) => (
+          <div key={i} className="h-[74px] animate-pulse rounded-xl bg-white shadow-sm ring-1 ring-black/5" />
+        ))}
+      </div>
+      <div className="h-[640px] animate-pulse rounded-xl bg-white shadow-sm ring-1 ring-black/5" />
+    </div>
+  )
+}
+
+function DailyEntryClient() {
   const [today] = useState(() => new Date())
   const [cursor, setCursor] = useState(() => new Date(today.getFullYear(), today.getMonth(), 1))
   const [days, setDays] = useState<Record<string, DayEntry>>(() => buildSeedData(today))
