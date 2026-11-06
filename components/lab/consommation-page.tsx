@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { CalendarDays, FlaskRound, Hourglass, ShieldCheck } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { DailyEntry } from '@/components/lab/daily-entry/daily-entry'
-import { LabBoard } from '@/components/lab/lab-board/lab-board'
 
 const TABS = [
   { id: 'saisie', label: 'Saisie quotidienne', icon: CalendarDays },
@@ -59,7 +58,7 @@ export function ConsommationPage() {
         key={tab}
         className="animate-in fade-in-0 slide-in-from-bottom-1 duration-300"
       >
-        {tab === 'saisie' ? <DailyEntry /> : tab === 'labo' ? <LabBoard /> : <ComingSoon />}
+        {tab === 'saisie' ? <DailyEntry /> : <ComingSoon />}
       </section>
     </div>
   )

@@ -275,7 +275,7 @@ function EntryForm({ onAdd }: { onAdd: (line: ConsumptionLine) => void }) {
         <div className="col-span-2 md:col-span-2">
           <button
             type="submit"
-            className="flex h-9 w-full items-center justify-center gap-1.5 whitespace-nowrap rounded-lg bg-emerald-600 px-2 text-sm font-medium text-white shadow-sm transition-all hover:bg-emerald-700 active:scale-[0.98]"
+            className="flex h-9 w-full items-center justify-center gap-1.5 rounded-lg bg-emerald-600 px-3 text-sm font-medium text-white shadow-sm transition-all hover:bg-emerald-700 active:scale-[0.98]"
           >
             <Plus className="size-4" aria-hidden="true" />
             Ajouter ligne
